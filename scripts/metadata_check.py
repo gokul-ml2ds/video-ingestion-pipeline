@@ -38,29 +38,44 @@ def send_email_notification(file_path):
 
     msg = MIMEText(body)
     msg['Subject'] = subject
-    msg['From'] = "goku31.yadu@gmail.com"  # Your Gmail address
+    msg['From'] = "gokulnair3101@gmail.com"
     msg['To'] = recipient
 
     try:
+        # Connect to Gmail's SMTP server using SSL
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login('gokulnair3101@gmail.com', 'xfhh cytm avnl lskl')
+            server.send_message(msg)
         print(f"Email sent to {recipient} about missing metadata for {file_path}.")
-        # Connect to Gmail's SMTP server
-        # with smtplib.SMTP('smtp.gmail.com', 587) as server:
-        #     server.starttls()  # Secure the connection
-        #     server.login('goku31.yadu@gmail.com', 'mookambikadevi')  # Your Gmail credentials
-        #     server.sendmail(msg['From'], [msg['To']], msg.as_string())
-        # print(f"Email sent to {recipient} about missing metadata for {file_path}.")
     except Exception as e:
         print(f"Failed to send email notification: {e}")
 
 def log_metadata_status(file_path, metadata_present):
-    conn = sqlite3.connect('video_status.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        INSERT INTO video_status (file_path, arrival_time, metadata_present)
-        VALUES (?, ?, ?)
-    ''', (file_path, datetime.now().isoformat(), metadata_present))
-    conn.commit()
-    conn.close()
+    try:
+        conn = sqlite3.connect('video_status.db')
+        cursor = conn.cursor()
+        
+        # Check if record exists
+        cursor.execute('SELECT 1 FROM video_status WHERE file_path = ?', (file_path,))
+        exists = cursor.fetchone() is not None
+        
+        if exists:
+            cursor.execute('''
+                UPDATE video_status
+                SET metadata_present = ?
+                WHERE file_path = ?
+            ''', (metadata_present, file_path))
+        else:
+            cursor.execute('''
+                INSERT INTO video_status (file_path, arrival_time, metadata_present, quality_check_result)
+                VALUES (?, ?, ?, 'Pending')
+            ''', (file_path, datetime.now().isoformat(), metadata_present))
+            
+        conn.commit()
+    except Exception as e:
+        print(f"Error updating metadata status: {e}")
+    finally:
+        conn.close()
 
 def update_metadata_status(file_path, metadata_present):
     conn = sqlite3.connect('video_status.db')

@@ -3,8 +3,6 @@ from utils import VideoHandler, WATCH_DIR  # Import from shared.py
 from kafka import KafkaProducer
 import json
 import os
-from scripts.metadata_check import extract_metadata
-from scripts.quality_check import check_video
 from gui import FileMonitorApp  
 
 KAFKA_TOPIC = "video_files"

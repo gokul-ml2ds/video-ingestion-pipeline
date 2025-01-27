@@ -4,7 +4,7 @@ from kafka import KafkaProducer
 import json
 import os
 from scripts.metadata_check import extract_metadata, update_metadata_status
-from scripts.quality_check import check_video
+from scripts.quality_check import check_video_quality
 from scripts.process_video import process_video
 
 WATCH_DIR = "videos"
@@ -21,11 +21,16 @@ def ensure_database():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS video_status (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            file_path TEXT,
+            file_path TEXT UNIQUE,
             arrival_time TEXT,
-            metadata_present BOOLEAN,
-            quality_check_result TEXT,
-            processing_complete BOOLEAN
+            metadata_present BOOLEAN DEFAULT FALSE,
+            quality_check_result TEXT DEFAULT 'Pending',
+            quality_score INTEGER DEFAULT 0,
+            quality_details TEXT DEFAULT '{}',
+            processing_complete BOOLEAN DEFAULT FALSE,
+            annotation_complete BOOLEAN DEFAULT FALSE,
+            annotation_email TEXT DEFAULT "",
+            CONSTRAINT unique_file UNIQUE (file_path)
         )
     ''')
     conn.commit()
@@ -57,6 +62,7 @@ class VideoHandler(FileSystemEventHandler):
         message = {"file_path": file_path}
         producer.send(KAFKA_TOPIC, json.dumps(message).encode('utf-8'))
         self.app.display_message(f"New video file detected: {file_path}")
+
 
     def process_metadata_file(self, metadata_file):
         # Extract the corresponding video file path

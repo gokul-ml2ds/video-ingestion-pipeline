@@ -3,6 +3,9 @@ import json
 import os
 from kafka import KafkaConsumer
 import sqlite3
+from datetime import datetime
+import smtplib
+from email.mime.text import MIMEText
 
 KAFKA_TOPIC = "video_files"
 KAFKA_SERVER = 'localhost:9092'
@@ -53,22 +56,76 @@ def process_video(input_file):
         return output_file
 
     except ffmpeg.Error as e:
-        print(f"FFmpeg error occurred: {e.stderr.decode()}")
+        print(f"FFmpeg error: {e.stderr.decode()}")
         raise
     except Exception as e:
-        print(f"Error processing video: {str(e)}")
+        print(f"Processing error: {str(e)}")
         raise
 
-def log_processing_status(file_path, processing_complete):
-    conn = sqlite3.connect('video_status.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        UPDATE video_status
-        SET processing_complete = ?
-        WHERE file_path = ?
-    ''', (processing_complete, file_path))
-    conn.commit()
-    conn.close()
+def log_processing_status(file_path, processing_complete, annotation_complete=False):
+    try:
+        print(f"Updating processing status for {file_path} with result: {processing_complete}")
+        conn = sqlite3.connect('video_status.db')
+        cursor = conn.cursor()
+        
+        # Check if record exists
+        cursor.execute('SELECT 1 FROM video_status WHERE file_path = ?', (file_path,))
+        exists = cursor.fetchone() is not None
+        
+        if exists:
+            if annotation_complete:
+                cursor.execute('''
+                    UPDATE video_status
+                    SET processing_complete = ?,
+                        annotation_complete = ?,
+                        annotation_email = ?
+                    WHERE file_path = ?
+                ''', (processing_complete, annotation_complete, 'gokuln@seas.upenn.edu', file_path))
+            else:
+                cursor.execute('''
+                    UPDATE video_status
+                    SET processing_complete = ?,
+                        annotation_complete = ?
+                    WHERE file_path = ?
+                ''', (processing_complete, annotation_complete, file_path))
+        else:
+            cursor.execute('''
+                INSERT INTO video_status (
+                    file_path, 
+                    arrival_time, 
+                    metadata_present, 
+                    quality_check_result, 
+                    processing_complete,
+                    annotation_complete
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
+            ''', (file_path, datetime.now().isoformat(), False, 'Passed', 
+                 processing_complete, annotation_complete))
+            
+        conn.commit()
+        print(f"Database updated for {file_path}")
+    except Exception as e:
+        print(f"Error updating processing status in database: {e}")
+    finally:
+        conn.close()
+
+def send_annotation_notification(file_path, processed_file):
+    recipient = "gokuln@seas.upenn.edu"  # Replace with your email
+    subject = "Video Ready for Annotation"
+    body = f"The processed video file {processed_file} is ready for annotation. Please annotate it. Thank you! \n Regards, Gokul Nair ."
+
+    msg = MIMEText(body)
+    msg['Subject'] = subject    
+    msg['From'] = "gokulnair3101@gmail.com"
+    msg['To'] = recipient
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login('gokulnair3101@gmail.com', 'xfhh cytm avnl lskl')
+            server.send_message(msg)
+        print(f"Annotation notification sent to {recipient} for {processed_file}")
+    except Exception as e:
+        print(f"Failed to send annotation notification: {e}")
 
 def main():
     consumer = KafkaConsumer(
@@ -86,10 +143,12 @@ def main():
             print(f"Processing file: {file_path}")
             try:
                 processed_file = process_video(file_path)
-                log_processing_status(file_path, True)
+                send_annotation_notification(file_path, processed_file)
+                log_processing_status(file_path, True, True)  # annotation_complete defaults to False
                 print(f"Processed file created: {processed_file}")
+                
             except Exception as e:
-                log_processing_status(file_path, False)
+                log_processing_status(file_path, False, False)  # annotation_complete defaults to False
                 print(f"Error processing video: {e}")
 
 if __name__ == "__main__":
