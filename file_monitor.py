@@ -6,6 +6,7 @@ import os
 from scripts.metadata_check import extract_metadata, update_metadata_status
 from scripts.quality_check import check_video_quality
 from scripts.process_video import process_video
+from utils.database import ensure_database
 
 WATCH_DIR = "videos"
 KAFKA_TOPIC = "video_files"
@@ -15,30 +16,9 @@ KAFKA_SERVER = 'localhost:9092'
 # List of common video file extensions
 VIDEO_EXTENSIONS = {".mp4", ".avi", ".mov", ".mkv", ".flv", ".wmv", ".webm"}
 
-def ensure_database():
-    conn = sqlite3.connect('video_status.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS video_status (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            file_path TEXT UNIQUE,
-            arrival_time TEXT,
-            metadata_present BOOLEAN DEFAULT FALSE,
-            quality_check_result TEXT DEFAULT 'Pending',
-            quality_score INTEGER DEFAULT 0,
-            quality_details TEXT DEFAULT '{}',
-            processing_complete BOOLEAN DEFAULT FALSE,
-            annotation_complete BOOLEAN DEFAULT FALSE,
-            annotation_email TEXT DEFAULT "",
-            CONSTRAINT unique_file UNIQUE (file_path)
-        )
-    ''')
-    conn.commit()
-    conn.close()
 
-# Ensure the database is set up when the producer is initialized
+
 ensure_database()
-
 producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
 
 class VideoHandler(FileSystemEventHandler):

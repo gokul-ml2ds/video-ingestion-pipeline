@@ -1,9 +1,6 @@
 import tkinter as tk
-from utils import VideoHandler, WATCH_DIR  # Import from shared.py
 from kafka import KafkaProducer
-import json
-import os
-from gui import FileMonitorApp  
+from app.gui import FileMonitorApp  
 
 KAFKA_TOPIC = "video_files"
 KAFKA_SERVER = 'localhost:9092'

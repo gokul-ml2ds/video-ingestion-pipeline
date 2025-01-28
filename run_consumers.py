@@ -1,7 +1,6 @@
 import subprocess
 import sys
 from pathlib import Path
-
 def run_consumers():
     scripts_dir = Path("scripts")
     consumers = [

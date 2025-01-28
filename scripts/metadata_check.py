@@ -67,8 +67,8 @@ def log_metadata_status(file_path, metadata_present):
             ''', (metadata_present, file_path))
         else:
             cursor.execute('''
-                INSERT INTO video_status (file_path, arrival_time, metadata_present, quality_check_result)
-                VALUES (?, ?, ?, 'Pending')
+                INSERT INTO video_status (file_path, arrival_time, metadata_present)
+                VALUES (?, ?, ?)
             ''', (file_path, datetime.now().isoformat(), metadata_present))
             
         conn.commit()
@@ -109,6 +109,7 @@ def main():
                 print(f"Metadata for {file_path}: {json.dumps(metadata, indent=2)}")
             else:
                 print(f"Failed to extract metadata for {file_path}")
+    
 
 if __name__ == "__main__":
     main()

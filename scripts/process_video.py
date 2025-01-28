@@ -93,14 +93,11 @@ def log_processing_status(file_path, processing_complete, annotation_complete=Fa
                 INSERT INTO video_status (
                     file_path, 
                     arrival_time, 
-                    metadata_present, 
-                    quality_check_result, 
                     processing_complete,
                     annotation_complete
                 )
-                VALUES (?, ?, ?, ?, ?, ?)
-            ''', (file_path, datetime.now().isoformat(), False, 'Passed', 
-                 processing_complete, annotation_complete))
+                VALUES (?, ?, ?, ?)
+            ''', (file_path, datetime.now().isoformat(), processing_complete, annotation_complete))
             
         conn.commit()
         print(f"Database updated for {file_path}")
@@ -144,12 +141,12 @@ def main():
             try:
                 processed_file = process_video(file_path)
                 send_annotation_notification(file_path, processed_file)
-                log_processing_status(file_path, True, True)  # annotation_complete defaults to False
+                log_processing_status(file_path, True, True)
                 print(f"Processed file created: {processed_file}")
-                
             except Exception as e:
-                log_processing_status(file_path, False, False)  # annotation_complete defaults to False
+                log_processing_status(file_path, False, False)
                 print(f"Error processing video: {e}")
+    
 
 if __name__ == "__main__":
     main()
