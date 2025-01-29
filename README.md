@@ -17,6 +17,25 @@ Before running the application, ensure the following are installed via Homebrew:
    brew install zookeeper
    ```
 
+## Virtual Environment Setup
+
+1. **Create a Virtual Environment**:
+   Navigate to your project directory and create a virtual environment if it doesn't exist:
+   ```bash
+   python3 -m venv venv
+   ```
+
+2. **Activate the Virtual Environment**:
+   Before running any scripts, activate the virtual environment:
+   - On macOS and Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+   - On Windows:
+     ```bash
+     .\venv\Scripts\activate
+     ```
+
 ## Docker Setup
 
 1. **Install Docker Desktop**: Download and install Docker Desktop from [Docker's official website](https://www.docker.com/products/docker-desktop).
