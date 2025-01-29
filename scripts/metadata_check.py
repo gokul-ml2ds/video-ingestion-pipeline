@@ -6,6 +6,13 @@ from datetime import datetime
 import os
 import smtplib
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+EMAIL_USER = os.getenv('EMAIL_USER')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')    
 
 KAFKA_TOPIC = "video_files"
 KAFKA_SERVER = 'localhost:9092'
@@ -38,17 +45,17 @@ def send_email_notification(file_path):
 
     msg = MIMEText(body)
     msg['Subject'] = subject
-    msg['From'] = "gokulnair3101@gmail.com"
+    msg['From'] = EMAIL_USER
     msg['To'] = recipient
 
     try:
         # Connect to Gmail's SMTP server using SSL
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-            server.login('gokulnair3101@gmail.com', 'xfhh cytm avnl lskl')
+            server.login(EMAIL_USER, EMAIL_PASSWORD)
             server.send_message(msg)
-        print(f"Email sent to {recipient} about missing metadata for {file_path}.")
+        print(f"\033[92mEmail sent to {recipient} about missing metadata for {file_path}.\033[0m")
     except Exception as e:
-        print(f"Failed to send email notification: {e}")
+        print(f"\033[91mFailed to send email notification: {e}\033[0m")
 
 def log_metadata_status(file_path, metadata_present):
     try:

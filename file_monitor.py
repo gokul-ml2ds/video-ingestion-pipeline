@@ -41,7 +41,7 @@ class VideoHandler(FileSystemEventHandler):
         # Send message to Kafka
         message = {"file_path": file_path}
         producer.send(KAFKA_TOPIC, json.dumps(message).encode('utf-8'))
-        self.app.display_message(f"New video file detected: {file_path}")
+        self.app.display_message(f"\033[92mNew video file detected: {file_path}\033[0m")
 
 
     def process_metadata_file(self, metadata_file):
@@ -50,9 +50,9 @@ class VideoHandler(FileSystemEventHandler):
         if os.path.exists(video_file_path):
             # Update the database to reflect that metadata is now present
             update_metadata_status(video_file_path, True)
-            print(f"Metadata file detected and database updated for {video_file_path}.")
+            print(f"\033[92mMetadata file detected and database updated for {video_file_path}.\033[0m")
             # Send message to JSON_TOPIC
             message = {"file_path": video_file_path, "metadata_file": metadata_file}
             producer.send(JSON_TOPIC, json.dumps(message).encode('utf-8'))
-            self.app.display_message(f"Metadata file detected: {metadata_file}")
+            self.app.display_message(f"\033[92mMetadata file detected: {metadata_file}\033[0m")
 

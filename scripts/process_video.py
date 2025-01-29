@@ -6,6 +6,13 @@ import sqlite3
 from datetime import datetime
 import smtplib
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+EMAIL_USER = os.getenv('EMAIL_USER')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 KAFKA_TOPIC = "video_files"
 KAFKA_SERVER = 'localhost:9092'
@@ -64,7 +71,7 @@ def process_video(input_file):
 
 def log_processing_status(file_path, processing_complete, annotation_complete=False):
     try:
-        print(f"Updating processing status for {file_path} with result: {processing_complete}")
+        print(f"\033[92mUpdating processing status for {file_path} with result: {processing_complete}\033[0m")
         conn = sqlite3.connect('video_status.db')
         cursor = conn.cursor()
         
@@ -100,9 +107,9 @@ def log_processing_status(file_path, processing_complete, annotation_complete=Fa
             ''', (file_path, datetime.now().isoformat(), processing_complete, annotation_complete))
             
         conn.commit()
-        print(f"Database updated for {file_path}")
+        print(f"\033[92mDatabase updated for {file_path}\033[0m")
     except Exception as e:
-        print(f"Error updating processing status in database: {e}")
+        print(f"\033[91mError updating processing status in database: {e}\033[0m")
     finally:
         conn.close()
 
@@ -113,16 +120,16 @@ def send_annotation_notification(file_path, processed_file):
 
     msg = MIMEText(body)
     msg['Subject'] = subject    
-    msg['From'] = "gokulnair3101@gmail.com"
+    msg['From'] = EMAIL_USER
     msg['To'] = recipient
 
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-            server.login('gokulnair3101@gmail.com', 'xfhh cytm avnl lskl')
+            server.login(EMAIL_USER, EMAIL_PASSWORD)
             server.send_message(msg)
-        print(f"Annotation notification sent to {recipient} for {processed_file}")
+        print(f"\033[92mAnnotation notification sent to {recipient} for {processed_file}\033[0m")
     except Exception as e:
-        print(f"Failed to send annotation notification: {e}")
+        print(f"\033[91mFailed to send annotation notification: {e}\033[0m")
 
 def main():
     consumer = KafkaConsumer(
@@ -137,15 +144,14 @@ def main():
     for message in consumer:
         file_path = message.value.get('file_path')
         if file_path:
-            print(f"Processing file: {file_path}")
             try:
                 processed_file = process_video(file_path)
                 send_annotation_notification(file_path, processed_file)
                 log_processing_status(file_path, True, True)
-                print(f"Processed file created: {processed_file}")
+                print(f"\033[92mProcessed file created: {processed_file}\033[0m")
             except Exception as e:
                 log_processing_status(file_path, False, False)
-                print(f"Error processing video: {e}")
+                print(f"\033[91mError processing video: {e}\033[0m")
     
 
 if __name__ == "__main__":

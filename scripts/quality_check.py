@@ -78,7 +78,7 @@ def check_video_quality(file_path):
 
 def log_quality_status(file_path, quality_score, issues):
     try:
-        print(f"Updating quality status for {file_path} with score: {quality_score}")
+        print(f"\033[92mUpdating quality status for {file_path} with score: {quality_score}\033[0m")
         conn = sqlite3.connect('video_status.db')
         cursor = conn.cursor()
         
@@ -198,11 +198,10 @@ def main():
     for message in consumer:
         file_path = message.value.get('file_path')
         if file_path:
-            print(f"Quality checking file: {file_path}")
             score, issues = check_video_quality(file_path)
             log_quality_status(file_path, score, issues)
             deduplicate_database()
-            print(f"Quality check complete - Score: {score}/10")
+            print(f"\033[92mQuality check complete - Score: {score}/10\033[0m")
             if issues:
                 print("Issues found:", ", ".join(issues))
 
