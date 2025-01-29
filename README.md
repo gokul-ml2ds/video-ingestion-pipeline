@@ -62,6 +62,8 @@ After setting up Docker and starting the services, follow these steps to run the
    python orchestrator.py
    ```
 
+   This will launch the GUI for the File Monitoring App.
+
 2. **Run the Consumers**:
    In a separate terminal, navigate to the project directory, then execute:
    ```bash
@@ -70,3 +72,13 @@ After setting up Docker and starting the services, follow these steps to run the
 
 These scripts will start the file monitoring and processing components of your application.
 
+### GUI Overview
+
+- **Start Monitoring**: Begins monitoring the `videos` directory for new files.
+- **Stop Monitoring**: Stops the monitoring process.
+- **Clear Log**: Clears the log display in the GUI.
+- **Status Bar**: Displays the current status of the monitoring process.
+
+<!-- add the ss of the gui here -->
+
+![GUI Screenshot](utils/SS.png)
