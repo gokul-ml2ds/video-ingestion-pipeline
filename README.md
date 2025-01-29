@@ -74,11 +74,13 @@ These scripts will start the file monitoring and processing components of your a
 
 ### GUI Overview
 
+<!-- add the ss of the gui here and center it -->
+
+<img src="utils/SS.png" alt="GUI Screenshot" width="50%" style="display: block; margin: 0 auto;">
+
 - **Start Monitoring**: Begins monitoring the `videos` directory for new files.
 - **Stop Monitoring**: Stops the monitoring process.
 - **Clear Log**: Clears the log display in the GUI.
 - **Status Bar**: Displays the current status of the monitoring process.
 
-<!-- add the ss of the gui here -->
 
-<img src="utils/SS.png" alt="GUI Screenshot" width="50%">
