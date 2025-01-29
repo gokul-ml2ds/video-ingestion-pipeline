@@ -36,6 +36,12 @@ Before running the application, ensure the following are installed via Homebrew:
      .\venv\Scripts\activate
      ```
 
+3. **Install Dependencies**:
+   With the virtual environment activated, install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
 ## Docker Setup
 
 1. **Install Docker Desktop**: Download and install Docker Desktop from [Docker's official website](https://www.docker.com/products/docker-desktop).
