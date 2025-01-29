@@ -46,7 +46,7 @@ This application efficiently monitors a designated directory for incoming video 
 2. **Create a Virtual Environment**:
    Navigate to your project directory and create a virtual environment if it doesn't exist:
    ```bash
-   python3 -m venv video_env
+   python3.11 -m venv video_env
    ```
 
 3. **Activate the Virtual Environment**:
@@ -77,7 +77,29 @@ Before running the application, ensure the following are installed via Homebrew:
    ```bash
    brew install python-tk@3.11
    ```
+## Docker Setup
 
+1. **Install Docker Desktop**: Download and install Docker Desktop from [Docker's official website](https://www.docker.com/products/docker-desktop).
+
+2. **Start Docker Desktop**: Open Docker Desktop and ensure it is running.
+
+## Running the Application with Docker Compose
+
+1. **In a new terminal, navigate to the project directory**:
+   ```bash
+   cd video-ingestion-pipeline
+   ```
+
+2. **Build and start the services**:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Stop the services**:
+   To stop the services, press `Ctrl+C` in the terminal where `docker-compose` is running, or run:
+   ```bash
+   docker-compose down
+   ```
 
 ## Usage
 
@@ -95,29 +117,6 @@ Before running the application, ensure the following are installed via Homebrew:
    python run_consumers.py
    ```
 
-## Docker Setup
-
-1. **Install Docker Desktop**: Download and install Docker Desktop from [Docker's official website](https://www.docker.com/products/docker-desktop).
-
-2. **Start Docker Desktop**: Open Docker Desktop and ensure it is running.
-
-## Running the Application with Docker Compose
-
-1. **Navigate to the project directory**:
-   ```bash
-   cd path/to/your/project
-   ```
-
-2. **Build and start the services**:
-   ```bash
-   docker-compose up --build
-   ```
-
-3. **Stop the services**:
-   To stop the services, press `Ctrl+C` in the terminal where `docker-compose` is running, or run:
-   ```bash
-   docker-compose down
-   ```
 
 ## Application Overview
 

@@ -1,6 +1,7 @@
 ffmpeg-python==0.2.0
 future==1.0.0
 kafka-python==2.0.2
+kafka
 python-dotenv==1.0.1
 tenacity==9.0.0
 watchdog==6.0.0
