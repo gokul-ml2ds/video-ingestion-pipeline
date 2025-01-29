@@ -41,6 +41,17 @@ Before running the application, ensure the following are installed via Homebrew:
    docker-compose down
    ```
 
+## Application Overview
+
+This application monitors a specified directory for video files, processes them, and updates a database with the results.
+
+### Directory Structure
+
+- **Monitoring Directory**: The application monitors the `videos` folder for new video files.
+- **Processed Videos**: Processed videos are saved in the `processed_videos` folder.
+- **Logs**: Logs are displayed in the terminal.
+- **Database**: Updates are made to the `video_status.db` database.
+
 ## Running the Application
 
 After setting up Docker and starting the services, follow these steps to run the application:
