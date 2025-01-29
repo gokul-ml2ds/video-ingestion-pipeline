@@ -4,18 +4,35 @@ This project is designed to monitor a specified directory for video files, proce
 
 ## Tech Stack
 
-- **Python**: Chosen for its simplicity and extensive libraries, making it ideal for rapid development and data processing tasks.
-- **Kafka**: Used for message brokering, allowing for scalable and reliable data streaming between components.
-- **FFmpeg**: A powerful multimedia processing tool, used here for video processing due to its versatility and performance.
-- **SQLite**: A lightweight database solution, perfect for applications that require a simple, file-based database.
-- **Tkinter**: Provides a simple way to create a GUI, making it easy to build a user-friendly interface for the application.
-- **Docker**: Facilitates containerization, ensuring consistent environments across different development and production setups.
-- **Watchdog**: Utilized for monitoring file system events, enabling real-time detection of new video files.
-- **smtplib**: Used for sending email notifications, allowing the application to alert users about processing statuses.
-- **dotenv**: Manages environment variables, keeping sensitive information like email credentials secure and separate from the codebase.
-- **Tenacity**: Implements retry logic for operations that might fail, enhancing the robustness of the application.
-- **Subprocess**: Used for running external processes, such as executing scripts or commands, within the application.
-- **Threading**: Enables concurrent execution of tasks, improving the responsiveness and efficiency of the application.
+- **Python**: Core programming language
+- **Kafka**: Message broker for reliable data streaming between components
+- **FFmpeg**: Powerful video processing and conversion tool
+- **SQLite**: Lightweight file-based database system
+- **Tkinter**: Simple GUI framework for user interface
+- **Docker**: Containerization for consistent environments
+- **Watchdog**: Real-time file system monitoring
+- **smtplib**: Email notification system
+- **dotenv**: Secure environment variable management
+- **Tenacity**: Retry logic for failed operations
+- **Subprocess**: External process execution handler
+- **Threading**: Concurrent task execution for better performance
+
+## File Structure
+
+- **scripts**: Contains the main logic for processing videos and metadata.
+  - `process_video.py`: Handles video processing tasks, including updating the database with processing status.
+  - `metadata_check.py`: Checks for metadata files associated with videos and sends notifications if missing.
+  - `quality_check.py`: Evaluates the quality of video files and logs the results.
+
+- **utils**: Contains utility functions and scripts for file monitoring and processing.
+  - `database.py`: Provides functions to ensure the database is set up and to update video processing statuses.
+
+- **app**: Contains the GUI for the application.
+  - `gui.py`: Implements the graphical user interface using Tkinter, allowing users to start and stop file monitoring.
+
+- **orchestrator.py**: Launches the GUI and initializes the file monitoring process.
+- **file_monitor.py**: Monitors the specified directory for new video files and triggers processing.
+- **run_consumers.py**: Starts the consumer scripts that handle video processing and metadata checks.
 
 ## System Requirements
 
