@@ -1,3 +1,20 @@
+# Video Processing and Monitoring Application
+
+This project is designed to monitor a specified directory for video files, process them, and update a database with the results. It includes a GUI for easy interaction and uses Kafka for message brokering.
+
+## Table of Contents
+
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Docker Setup](#docker-setup)
+- [Running the Application](#running-the-application)
+- [Application Overview](#application-overview)
+- [Directory Structure](#directory-structure)
+- [Running the Application](#running-the-application)
+- [GUI Overview](#gui-overview)
+- [License](#license)
+
 ## System Requirements
 
 Before running the application, ensure the following are installed via Homebrew:
@@ -17,16 +34,21 @@ Before running the application, ensure the following are installed via Homebrew:
    brew install zookeeper
    ```
 
-## Virtual Environment Setup
+## Installation
 
-1. **Create a Virtual Environment**:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/video-processing-app.git
+   cd video-processing-app
+   ```
+
+2. **Create a Virtual Environment**:
    Navigate to your project directory and create a virtual environment if it doesn't exist:
    ```bash
    python3 -m venv venv
    ```
 
-2. **Activate the Virtual Environment**:
-   Before running any scripts, activate the virtual environment:
+3. **Activate the Virtual Environment**:
    - On macOS and Linux:
      ```bash
      source venv/bin/activate
@@ -36,10 +58,26 @@ Before running the application, ensure the following are installed via Homebrew:
      .\venv\Scripts\activate
      ```
 
-3. **Install Dependencies**:
+4. **Install Dependencies**:
    With the virtual environment activated, install the required packages:
    ```bash
    pip install -r requirements.txt
+   ```
+
+## Usage
+
+1. **Run the Orchestrator**:
+   Open a terminal and navigate to the project directory, then execute:
+   ```bash
+   python orchestrator.py
+   ```
+
+   This will launch the GUI for the File Monitoring App.
+
+2. **Run the Consumers**:
+   In a separate terminal, navigate to the project directory, then execute:
+   ```bash
+   python run_consumers.py
    ```
 
 ## Docker Setup
@@ -107,5 +145,9 @@ These scripts will start the file monitoring and processing components of your a
 - **Stop Monitoring**: Stops the monitoring process.
 - **Clear Log**: Clears the log display in the GUI.
 - **Status Bar**: Displays the current status of the monitoring process.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
