@@ -17,23 +17,6 @@ This application efficiently monitors a designated directory for incoming video 
 - **Subprocess**: External process execution handler
 - **Threading**: Concurrent task execution for better performance
 
-## File Structure
-
-- **scripts**: Contains the main logic for processing videos and metadata.
-  - `process_video.py`: Handles video processing tasks, including updating the database with processing status.
-  - `metadata_check.py`: Checks for metadata files associated with videos and sends notifications if missing.
-  - `quality_check.py`: Evaluates the quality of video files and logs the results.
-
-- **utils**: Contains utility functions and scripts for file monitoring and processing.
-  - `database.py`: Provides functions to ensure the database is set up and to update video processing statuses.
-
-- **app**: Contains the GUI for the application.
-  - `gui.py`: Implements the graphical user interface using Tkinter, allowing users to start and stop file monitoring.
-
-- **orchestrator.py**: Launches the GUI and initializes the file monitoring process.
-- **file_monitor.py**: Monitors the specified directory for new video files and triggers processing.
-- **run_consumers.py**: Starts the consumer scripts that handle video processing and metadata checks.
-
 
 ## Installation
 
@@ -101,7 +84,18 @@ Before running the application, ensure the following are installed via Homebrew:
    docker-compose down
    ```
 
-## Usage
+## Environment Variables
+
+Create a `.env` file in the root directory with:
+
+```
+EMAIL_USER=your_email@example.com
+EMAIL_PASSWORD=your_email_password
+```
+
+## Running the Application
+
+After setting up Docker and starting the services, follow these steps to run the application:
 
 1. **Run the Orchestrator**:
    Open a terminal and navigate to the project directory, then execute:
@@ -117,6 +111,8 @@ Before running the application, ensure the following are installed via Homebrew:
    python run_consumers.py
    ```
 
+These scripts will start the file monitoring and processing components of your application.
+
 
 ## Application Overview
 
@@ -129,13 +125,23 @@ This application monitors a specified directory for video files, processes them,
 - **Logs**: Logs are displayed in the terminal.
 - **Database**: Updates are made to the `video_status.db` database.
 
-## Environment Variables
+## File Structure
 
-Create a `.env` file in the root directory with:
+- **scripts**: Contains the main logic for processing videos and metadata.
+  - `process_video.py`: Handles video processing tasks, including updating the database with processing status.
+  - `metadata_check.py`: Checks for metadata files associated with videos and sends notifications if missing.
+  - `quality_check.py`: Evaluates the quality of video files and logs the results.
 
-```
-EMAIL_USER=your_email@example.com
-EMAIL_PASSWORD=your_email_password
+- **utils**: Contains utility functions and scripts for file monitoring and processing.
+  - `database.py`: Provides functions to ensure the database is set up and to update video processing statuses.
+
+- **app**: Contains the GUI for the application.
+  - `gui.py`: Implements the graphical user interface using Tkinter, allowing users to start and stop file monitoring.
+
+- **orchestrator.py**: Launches the GUI and initializes the file monitoring process.
+- **file_monitor.py**: Monitors the specified directory for new video files and triggers processing.
+- **run_consumers.py**: Starts the consumer scripts that handle video processing and metadata checks.
+
 ```
 
 ## Running the Application
