@@ -56,10 +56,10 @@ def process_video(input_file):
         return output_file
 
     except ffmpeg.Error as e:
-        print(f"FFmpeg error: {e.stderr.decode()}")
+        print("FFmpeg error")
         raise
     except Exception as e:
-        print(f"Processing error: {str(e)}")
+        print("Processing error")
         raise
 
 def log_processing_status(file_path, processing_complete, annotation_complete=False):

@@ -1,12 +1,6 @@
 import subprocess
 import sys
-import os
 from pathlib import Path
-
-# Add project root to Python path
-project_root = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, project_root)
-
 def run_consumers():
     scripts_dir = Path("scripts")
     consumers = [
@@ -16,12 +10,9 @@ def run_consumers():
     ]
     
     processes = []
-    env = os.environ.copy()
-    env["PYTHONPATH"] = project_root
-    
     for consumer in consumers:
         script_path = scripts_dir / consumer
-        process = subprocess.Popen([sys.executable, str(script_path)], env=env)
+        process = subprocess.Popen([sys.executable, str(script_path)])
         processes.append(process)
     
     try:
