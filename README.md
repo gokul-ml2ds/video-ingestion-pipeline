@@ -93,6 +93,30 @@ EMAIL_USER=your_email@example.com
 EMAIL_PASSWORD=your_email_password
 ```
 
+## Email Configuration
+
+To enable email notifications, you need to set up an app-specific password for your Gmail account. Follow these steps:
+
+1. **Enable Two-Factor Authentication**:
+   - Ensure that two-factor authentication (2FA) is enabled on your Google account.
+
+2. **Generate an App-Specific Password**:
+   - Visit [Google's App Passwords page](https://support.google.com/accounts/answer/185833?hl=en).
+   - Sign in to your Google account if prompted.
+   - Select "Mail" as the app and "Other" as the device, then enter a custom name (e.g., "Video Ingestion App").
+   - Click "Generate" to create the password.
+   - Copy the generated password.
+
+3. **Update the `.env` File**:
+   - Open the `.env` file in the root of your project.
+   - Set the `EMAIL_PASSWORD` variable to the app-specific password you generated:
+     ```plaintext
+     EMAIL_PASSWORD=your_app_specific_password_here
+     ```
+
+4. **Save and Secure**:
+   - Save the `.env` file and ensure it is not shared publicly or committed to version control.
+
 ## Running the Application
 
 After setting up Docker and starting the services, follow these steps to run the application:
