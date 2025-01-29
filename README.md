@@ -168,25 +168,6 @@ This application monitors a specified directory for video files, processes them,
 
 ```
 
-## Running the Application
-
-After setting up Docker and starting the services, follow these steps to run the application:
-
-1. **Run the Orchestrator**:
-   Open a terminal and navigate to the project directory, then execute:
-   ```bash
-   python orchestrator.py
-   ```
-
-   This will launch the GUI for the File Monitoring App.
-
-2. **Run the Consumers**:
-   In a separate terminal, navigate to the project directory, then execute:
-   ```bash
-   python run_consumers.py
-   ```
-
-These scripts will start the file monitoring and processing components of your application.
 
 ### GUI Overview
 
