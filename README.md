@@ -1,6 +1,6 @@
 # Video Processing and Monitoring Application
 
-This project is designed to monitor a specified directory for video files, process them, and update a database with the results. It includes a GUI for easy interaction and uses Kafka for message brokering.
+This application efficiently monitors a designated directory for incoming video files, processes them, and updates a database with the results. It features a user-friendly GUI for seamless interaction and leverages Kafka for robust message brokering.
 
 ## Tech Stack
 
@@ -57,24 +57,24 @@ Before running the application, ensure the following are installed via Homebrew:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/video-processing-app.git
-   cd video-processing-app
+   git clone https://github.com/gokul-ml2ds/video-ingestion-pipeline.git
+   cd video-ingestion-pipeline
    ```
 
 2. **Create a Virtual Environment**:
    Navigate to your project directory and create a virtual environment if it doesn't exist:
    ```bash
-   python3 -m venv venv
+   python3 -m venv video_env
    ```
 
 3. **Activate the Virtual Environment**:
    - On macOS and Linux:
      ```bash
-     source venv/bin/activate
+     source video_env/bin/activate
      ```
    - On Windows:
      ```bash
-     .\venv\Scripts\activate
+     .\video_env\Scripts\activate
      ```
 
 4. **Install Dependencies**:
@@ -134,6 +134,15 @@ This application monitors a specified directory for video files, processes them,
 - **Logs**: Logs are displayed in the terminal.
 - **Database**: Updates are made to the `video_status.db` database.
 
+## Environment Variables
+
+Create a `.env` file in the root directory with:
+
+```
+EMAIL_USER=your_email@example.com
+EMAIL_PASSWORD=your_email_password
+```
+
 ## Running the Application
 
 After setting up Docker and starting the services, follow these steps to run the application:
@@ -162,4 +171,6 @@ These scripts will start the file monitoring and processing components of your a
 - **Status Bar**: Displays the current status of the monitoring process.
 
 <img src="utils/SS.png" alt="GUI Screenshot" width="50%" style="display: block; margin: 0 auto;">
+
+
 
