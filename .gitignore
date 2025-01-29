@@ -76,3 +76,5 @@ utils/__pycache__/
 scripts/__pycache__/
 scripts/__pycache__/process_video.cpython-311.pyc
 scripts/__pycache__/process_video.cpython-311.pyc
+/scripts/__pycache__
+videos/.DS_Store
