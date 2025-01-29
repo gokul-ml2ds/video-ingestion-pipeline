@@ -34,19 +34,6 @@ This application efficiently monitors a designated directory for incoming video 
 - **file_monitor.py**: Monitors the specified directory for new video files and triggers processing.
 - **run_consumers.py**: Starts the consumer scripts that handle video processing and metadata checks.
 
-## System Requirements
-
-Before running the application, ensure the following are installed via Homebrew:
-
-1. **FFmpeg**: Required for video processing.
-   ```bash
-   brew install ffmpeg
-   ```
-
-2. **Python Tkinter**: Required for the GUI.
-   ```bash
-   brew install python-tk@3.11
-   ```
 
 ## Installation
 
@@ -77,6 +64,20 @@ Before running the application, ensure the following are installed via Homebrew:
    ```bash
    pip install -r requirements.txt
    ```
+## System Requirements
+
+Before running the application, ensure the following are installed via Homebrew:
+
+1. **FFmpeg**: Required for video processing.
+   ```bash
+   brew install ffmpeg
+   ```
+
+2. **Python Tkinter**: Required for the GUI.
+   ```bash
+   brew install python-tk@3.11
+   ```
+
 
 ## Usage
 
