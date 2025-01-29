@@ -169,6 +169,7 @@ This application monitors a specified directory for video files, processes them,
 ```
 
 
+```
 ### GUI Overview
 
 - **Start Monitoring**: Begins monitoring the `videos` directory for new files.
