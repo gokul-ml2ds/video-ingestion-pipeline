@@ -30,8 +30,6 @@ def extract_metadata(file_path):
         with open(metadata_file, 'r') as f:
             metadata = json.load(f)
 
-        # Print the extracted metadata for debugging
-        print(f"Extracted metadata for {file_path}: {json.dumps(metadata, indent=2)}")
         return metadata
 
     except Exception as e:

@@ -10,7 +10,7 @@ from file_monitor import VideoHandler
 class FileMonitorApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("File Monitor")
+        self.root.title("VideoFile Monitor")
 
         # Set the window size to a specific width and height
         window_width = 430  # Adjust width as needed
@@ -49,7 +49,8 @@ class FileMonitorApp:
 
         # Header Label
         self.header_label = ttk.Label(
-            self.main_frame, text="File Monitoring App", style="Header.TLabel"
+            self.main_frame, text="Video File Monitoring System", style="Header.TLabel",
+            anchor="center", justify="center"
         )
         self.header_label.grid(row=1, column=0, columnspan=2, pady=(10, 20), sticky="ew")
 
@@ -149,7 +150,7 @@ class FileMonitorApp:
         """Cleanly stop the observer if running, then exit."""
         if self.is_running:
             self.stop_monitoring()
-        self.root.quit()
+        self.root.destroy()  # This will close the window
 
     def show_about_dialog(self):
         messagebox.showinfo(

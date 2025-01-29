@@ -13,5 +13,5 @@ producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
 if __name__ == "__main__":
     root = tk.Tk()
     app = FileMonitorApp(root)
-    root.protocol("WM_DELETE_WINDOW", app.stop_monitoring)
+    root.protocol("WM_DELETE_WINDOW", app.exit_app)
     root.mainloop()
