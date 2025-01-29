@@ -66,7 +66,6 @@ Thumbs.db
 
 # Environment variables
 .env
-
 # ds store
 .DS_Store
 scripts/__pycache__/metadata_check.cpython-311.pyc
@@ -78,3 +77,4 @@ scripts/__pycache__/process_video.cpython-311.pyc
 scripts/__pycache__/process_video.cpython-311.pyc
 /scripts/__pycache__
 videos/.DS_Store
+.env
