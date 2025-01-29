@@ -81,4 +81,4 @@ These scripts will start the file monitoring and processing components of your a
 
 <!-- add the ss of the gui here -->
 
-![GUI Screenshot](utils/SS.png)
+<img src="utils/SS.png" alt="GUI Screenshot" width="50%">
