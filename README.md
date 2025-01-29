@@ -149,7 +149,7 @@ This application monitors a specified directory for video files, processes them,
 - **Logs**: Logs are displayed in the terminal.
 - **Database**: Updates are made to the `video_status.db` database.
 
-## File Structure
+### File Structure
 
 - **scripts**: Contains the main logic for processing videos and metadata.
   - `process_video.py`: Handles video processing tasks, including updating the database with processing status.
