@@ -2,18 +2,20 @@
 
 This project is designed to monitor a specified directory for video files, process them, and update a database with the results. It includes a GUI for easy interaction and uses Kafka for message brokering.
 
-## Table of Contents
+## Tech Stack
 
-- [System Requirements](#system-requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Docker Setup](#docker-setup)
-- [Running the Application](#running-the-application)
-- [Application Overview](#application-overview)
-- [Directory Structure](#directory-structure)
-- [Running the Application](#running-the-application)
-- [GUI Overview](#gui-overview)
-- [License](#license)
+- **Python**: Chosen for its simplicity and extensive libraries, making it ideal for rapid development and data processing tasks.
+- **Kafka**: Used for message brokering, allowing for scalable and reliable data streaming between components.
+- **FFmpeg**: A powerful multimedia processing tool, used here for video processing due to its versatility and performance.
+- **SQLite**: A lightweight database solution, perfect for applications that require a simple, file-based database.
+- **Tkinter**: Provides a simple way to create a GUI, making it easy to build a user-friendly interface for the application.
+- **Docker**: Facilitates containerization, ensuring consistent environments across different development and production setups.
+- **Watchdog**: Utilized for monitoring file system events, enabling real-time detection of new video files.
+- **smtplib**: Used for sending email notifications, allowing the application to alert users about processing statuses.
+- **dotenv**: Manages environment variables, keeping sensitive information like email credentials secure and separate from the codebase.
+- **Tenacity**: Implements retry logic for operations that might fail, enhancing the robustness of the application.
+- **Subprocess**: Used for running external processes, such as executing scripts or commands, within the application.
+- **Threading**: Enables concurrent execution of tasks, improving the responsiveness and efficiency of the application.
 
 ## System Requirements
 
@@ -137,17 +139,10 @@ These scripts will start the file monitoring and processing components of your a
 
 ### GUI Overview
 
-<!-- add the ss of the gui here and center it -->
-
-<img src="utils/SS.png" alt="GUI Screenshot" width="50%" style="display: block; margin: 0 auto;">
-
 - **Start Monitoring**: Begins monitoring the `videos` directory for new files.
 - **Stop Monitoring**: Stops the monitoring process.
 - **Clear Log**: Clears the log display in the GUI.
 - **Status Bar**: Displays the current status of the monitoring process.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
+<img src="utils/SS.png" alt="GUI Screenshot" width="50%" style="display: block; margin: 0 auto;">
 
