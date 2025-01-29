@@ -166,10 +166,6 @@ This application monitors a specified directory for video files, processes them,
 - **file_monitor.py**: Monitors the specified directory for new video files and triggers processing.
 - **run_consumers.py**: Starts the consumer scripts that handle video processing and metadata checks.
 
-```
-
-
-```
 ### GUI Overview
 
 - **Start Monitoring**: Begins monitoring the `videos` directory for new files.
