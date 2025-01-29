@@ -43,14 +43,9 @@ Before running the application, ensure the following are installed via Homebrew:
    brew install ffmpeg
    ```
 
-2. **Kafka**: If you want to run Kafka locally.
+2. **Python Tkinter**: Required for the GUI.
    ```bash
-   brew install kafka
-   ```
-
-3. **Zookeeper**: Required by Kafka.
-   ```bash
-   brew install zookeeper
+   brew install python-tk@3.11
    ```
 
 ## Installation
