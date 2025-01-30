@@ -13,7 +13,6 @@ This application efficiently monitors a designated directory for incoming video 
 - **Watchdog**: Real-time file system monitoring
 - **smtplib**: Email notification system
 - **dotenv**: Secure environment variable management
-- **Tenacity**: Retry logic for failed operations
 - **Subprocess**: External process execution handler
 - **Threading**: Concurrent task execution for better performance
 
